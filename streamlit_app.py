@@ -7,7 +7,7 @@ from datetime import date,datetime
 import matplotlib.pyplot as plt
 
 st.set_page_config(layout='wide', initial_sidebar_state='auto')
-df = pd.read_excel("Data_Business_Analyst.xlsx")
+df = pd.read_csv("https://raw.githubusercontent.com/NookGodZ/Steamlit_test/main/Data_Business_Analyst.csv")
 df = df.rename(columns={'shop_location_latitude': 'latitude', 'shop_location_longitude': 'longitude'})
 food_category_list = ['All'] + df['food_category'].unique().tolist()
 with st.sidebar:
@@ -172,7 +172,7 @@ with col2:
     graph(graph_option)
 
     ####################### 1.6 #############################
-    df['order_time'] = pd.to_datetime(df['order_time'].apply(lambda x: datetime.combine(date.today(), x)))
+    df['order_time'] = pd.to_datetime(df['order_time'].apply(lambda x: datetime.combine(date.today(), datetime.strptime(x, '%H:%M:%S').time())))
 
     # Create a dropdown menu to select the food category
     food_category_list = ['All'] + df['food_category'].unique().tolist()
